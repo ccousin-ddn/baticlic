@@ -1,0 +1,47 @@
+SELECT idworker, YEAR(att_in) AS date_year, WEEK(att_in, 1) AS date_week, DAYNAME(att_in) AS date_day, 
+SEC_TO_TIME(SUM(IF(DAYOFWEEK(att_in) = 2, TIME_TO_SEC(att_duration_day), NULL))) AS lu, 
+SEC_TO_TIME(SUM(IF(DAYOFWEEK(att_in) = 3, TIME_TO_SEC(att_duration_day), NULL))) AS ma, 
+SEC_TO_TIME(SUM(IF(DAYOFWEEK(att_in) = 4, TIME_TO_SEC(att_duration_day), NULL))) AS me
+FROM wor_attendance
+WHERE WEEK(att_in, 1) = 26
+GROUP BY idworker;
+
+CA Previsionnel
+
+SELECT SUM(quo_amount) AS tot_quo
+FROM job_job
+LEFT JOIN quo_quotation ON job_job.idjob = quo_quotation.idjob AND quo_status=3
+WHERE job_status IN (2,3);
+
+-
+
+SELECT SUM(inv_tot_articles) AS tot_inv
+FROM job_job
+LEFT JOIN inv_invoice ON job_job.idjob = inv_invoice.idjob
+WHERE job_status IN (2,3);
+
+SELECT MONTH(inv_date) AS num_month, SUM(inv_tot_articles) AS total
+FROM inv_invoice
+WHERE inv_status > 0
+AND inv_date BETWEEN '2020-09-30' AND '2021-09-30'
+GROUP BY MONTH(inv_date)
+ORDER BY inv_date
+
+***********************************************
+idinvoice : 83,84,88
+
+SELECT 
+t1.idvat, t1.lin_description, t1.lin_percent, t1.lin_total,
+t2.idvat, t2.lin_description, t2.lin_percent, t2.lin_total
+FROM inv_line AS t1
+LEFT JOIN (
+	SELECT MAX(idvat) AS idvat, lin_description, SUM(lin_percent) AS lin_percent, SUM(lin_total) AS lin_total
+	FROM inv_line
+	WHERE lin_percent > 0 AND idinvoice IN (SELECT idprevinvoice FROM inv_line_previous WHERE idinvoice = 88)
+	GROUP BY lin_description
+) AS t2 ON t1.lin_description = t2.lin_description
+WHERE t1.lin_percent > 0 AND t1.idinvoice = 88;
+
+SELECT idvat, lin_description, lin_percent, lin_total
+FROM inv_line
+WHERE lin_percent > 0 AND idinvoice IN (SELECT idprevinvoice FROM inv_line_previous WHERE idinvoice = 88)

@@ -1,0 +1,28 @@
+SELECT cli_name, sit_name, sit_address_1, sit_pc, sit_city
+, ROUND(
+	6371 * ACOS (
+	COS ( RADIANS(50.279345) )
+	* COS( RADIANS( sit_lat ) )
+	* COS( RADIANS( sit_lng ) - RADIANS(3.971640) )
+	+ SIN ( RADIANS(50.279345) )
+	* SIN( RADIANS( sit_lat ) )
+),2
+) AS distance
+FROM sit_site
+LEFT JOIN cli_client USING(idclient);
+
+******************
+UPDATE sit_site
+LEFT JOIN 
+(
+ SELECT idarea, idsite 
+ FROM 
+ (
+  SELECT idsite, cli_name, sit_name, sit_address_1, sit_pc, sit_city, ROUND(6371*ACOS(COS(RADIANS(50.279345))*COS(RADIANS(sit_lat))*COS(RADIANS(sit_lng)-RADIANS(3.971640))+SIN(RADIANS(50.279345))* SIN(RADIANS(sit_lat))),2) AS distance
+  FROM sit_site
+  LEFT JOIN cli_client USING(idclient)
+  WHERE sit_lat IS NOT NULL
+ ) AS geo
+ LEFT JOIN are_area ON are_min <= distance AND are_max > distance
+) AS are USING (idsite)
+SET sit_site.idarea = are.idarea

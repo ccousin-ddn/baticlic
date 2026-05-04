@@ -1,0 +1,17 @@
+{
+	"config": {
+	"optimize-autoloader": true,
+	"preferred-install": "dist",
+	"sort-packages": true,
+	"allow-plugins": {},
+	"platform": { 
+		"php": "8.1" 
+		}
+	},
+    "require": {
+		"mpdf/mpdf": "^8.1",
+		"phpmailer/phpmailer": "^6.8",
+		"shuchkin/simplexls": "^0.10.3",
+		"shuchkin/simplexlsx": "^1.0"
+	}
+}
