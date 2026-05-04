@@ -1,0 +1,28 @@
+@font-face {
+	font-family: 'nunito';
+}
+html,table,div,* {font-family: "nunito", sans-serif; font-size: 20px; letter-spacing: 0.2px; line-height:1.5; color: #000;}
+
+div{font-size: 16px;}
+
+table {overflow-wrap: break-word;word-break: break-word; overflow: wrap; border:1px solid black; border-collapse: collapse;width:100%;}
+td {padding:5px; text-align:center; border:1px solid black;}
+td.layout { height:700px; }
+
+h1{font-size: 15px; margin-bottom:2px; margin-top:2px;}
+h2{font-size: 13px;}
+h3{font-size: 11px;}
+em{font-size: 10px;}
+small, .small{font-size: 10px;line-height:2}
+
+p{letter-spacing: 0.5px; margin-top:10px; margin-bottom:5px;}
+
+table.table-break {page-break-inside: avoid;}
+
+.table-content {width:100%; border: 1px solid; padding:5px;}
+
+.info-color{color:#6fb342; font-size:15px; display:block;}
+
+.underline {border-bottom: 1px solid black;}
+.strong {font-weight: bold;}
+.badge {padding:5px 10px; border:1px solid #ccc; border-radius:5px;}
