@@ -1,0 +1,81 @@
+**************************************************EDIT******************************************************
+
+**********************
+***lib_bs_input.php***
+**********************
+new input(data)
+input->create(type, label, name, mandatory(true/false)[, defaultValue[, divSize[, inputClass[, info(array)]]]])
+
+type : hidden(), disabled(), text(), mail(), phone(), date(), textarea(), textareaEdit(), radioArray(),
+radioQuery(), checkbox(), upload(), select(), selectFilter(), selectSearch()
+divSize : col-sm-4 (bootstrap)
+inputClass : inp-150 (style_gen.css)
+info : 
+	radioArray() => array("val1","val2"[,"val3"])
+	radioQuery(), checkbox(), select() => array(id getList, "tableName")
+	selectFilter() => array("idlist"=>id getList,"table"=>"tableName"[, "container"=>"body"[, "none-result-text"=>""][, "tableFrom"=>""]])
+	selectSearch() => array("colName(selected value)", "tableName")
+	upload() => array("type(img/doc/all)","maxSize","path","resize")
+
+********************
+***lib_bs_div.php***
+********************
+new div()
+div->create((divClass, elem1[, elem2[, elem3[, ...]]]))
+divClass : well well-sm, row, ...
+elem : input
+
+*********************
+***lib_bs_form.php***
+*********************
+new form()
+form->create(type, formId, formClass, elem1[, elem2[, elem3[, ...]]])
+type : normal, upload
+formId : tableName_form
+formClass : form-inline, form-horizontal
+elem : input, div
+
+********************
+***lib_bs_tab.php***
+********************
+new tab(id)
+id : tab selected
+tab->create(label, tabClass, form)
+
+***********************
+***lib_bs_button.php***
+***********************
+new button(tableName, id)
+button->create(type[, buttonClass])
+type : save, cancel, delete
+buttonClass : btn-left, ...
+
+**********************
+***lib_bs_page.php****
+**********************
+new page(type, id, label, pageClass, body, buttons)
+type : normal, modal
+id : tableName_modal
+pageClass : modal-lg (bootstrap)
+page->create()
+
+
+**************************************************TABLE*****************************************************
+
+***********************
+***lib_bs_table.php****
+***********************
+column : array("field"=>"colName", "alter"=>"type", "title"=>"colLabel", "sortable"=>false, "searchable"=>false, "class"=>"text-nowrap")
+type : email, address, phone, mobile, date-be, date-letter
+
+new table(tableName,level[,checkbox(true/false)])
+head = table->createHead(title)
+thead = table->createTableHead(columns)
+tbody = table->createTableBody(id, data, conds)
+conds : array(array("column"=>"colName", "query"=>"condition", "class"=>"class"))
+
+param : array("height"=>"auto", "show-columns"=>"true", "pagination"=>"false", "search"=>true, "classes"=>"table table-no-bordered table-hover", "striped"=>"true")
+table->createTable(head, param, thead, tbody)
+
+
+//showTable("tableName","selectForTable","conditions","idName",scroll,"JS show card","domId");

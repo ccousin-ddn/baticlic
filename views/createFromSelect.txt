@@ -1,0 +1,23 @@
+1. v_ newFrom : select
+	ajouter "none-result-text" et "tableFrom"
+
+2. main_ext.js : newFrom 
+	case tableNew
+
+		insertFrom 
+	case tableFrom
+		success 
+	case tableFrom
+
+3. c_tableNew : newFrom 
+	['data']['value'], ['data']['otherId']
+	$tableFrom = $_POST['data']['tableFrom'];
+
+		insert 
+	retirer encrypt $newId
+
+[si modal]
+4. v_tableNew : newFrom 
+	$button1 : onclick="insertFrom(\''.$tableFrom.'\', \'table_new\')"
+
+
